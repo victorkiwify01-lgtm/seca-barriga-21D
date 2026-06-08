@@ -1,7 +1,7 @@
 :root {
     --bg-color: #f8f9fa;
     --text-color: #212529;
-    --text-muted: #6c757d;
+    --text-muted: #000000;
     --primary-color: #ff6b6b;
     /* Vibrant coral for energy/metabolism */
     --primary-glow: rgba(255, 107, 107, 0.4);
@@ -265,13 +265,19 @@ p {
 /* Hero Section */
 .hero-section {
     min-height: 90vh;
-    /* Keeps the height but allows flex/grid */
     display: flex;
     align-items: center;
-    padding-top: 6rem;
+    padding-top: 4rem;
     position: relative;
     overflow: hidden;
-    /* Prevents horizontal scroll from incoming animations */
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: auto;
+        padding-top: 2rem;
+        display: block;
+    }
 }
 
 /* Hero Section Layout - Centered Logo Style */
@@ -279,17 +285,16 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center;
     gap: 2rem;
-    padding-top: 2rem;
+    width: 100%;
 }
 
-.hero-content {
-    text-align: center;
-    z-index: 2;
-    max-width: 800px;
-    margin: 0 auto;
+@media (max-width: 768px) {
+    .hero-layout {
+        display: block;
+        padding: 0 1.5rem;
+    }
 }
 
 .hero-section h1 {
@@ -315,34 +320,29 @@ p {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
     border-left: 4px solid var(--secondary-color);
     text-align: left;
-    /* Keep description text readable */
 }
 
-/* Image acts as Logo now */
 .hero-image {
-    position: relative;
-    z-index: 1;
+    width: 100%;
+    margin-bottom: 2rem;
     display: flex;
     justify-content: center;
-    margin-bottom: 1rem;
 }
 
 .hero-image img {
     max-width: 100%;
     height: auto;
-    max-height: 280px;
-    /* Smaller, logo-like size */
-    mix-blend-mode: multiply;
+    max-height: 250px;
     animation: breathe 4s ease-in-out infinite alternate;
 }
 
-@keyframes breathe {
-    0% {
-        transform: scale(1);
+@media (max-width: 768px) {
+    .hero-image {
+        margin-bottom: 1.5rem;
     }
 
-    100% {
-        transform: scale(1.05);
+    .hero-image img {
+        max-height: 160px;
     }
 }
 
@@ -744,21 +744,56 @@ p {
     margin-bottom: 2rem;
 }
 
+.price-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1.5rem 0 2rem;
+}
+
+.old-price {
+    font-size: 1.4rem;
+    color: var(--text-muted);
+    text-decoration: line-through;
+    font-weight: 500;
+}
+
+.price-divider {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+}
+
 .price-box {
-    font-size: 5rem;
+    font-size: 6rem;
     font-weight: 800;
-    color: var(--text-color);
+    color: var(--primary-color);
     line-height: 1;
-    margin: 1.5rem 0;
+    margin: 0.5rem 0;
     letter-spacing: -2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cents {
+    font-size: 2.5rem;
+    font-weight: 700;
+    vertical-align: super;
+    margin-top: -1.2rem;
+    color: var(--primary-color);
 }
 
 .currency {
-    font-size: 2rem;
-    font-weight: 400;
+    font-size: 2.2rem;
+    font-weight: 600;
     vertical-align: super;
     margin-right: 5px;
-    color: var(--text-muted);
+    color: var(--primary-color);
 }
 
 .payment-info {
@@ -770,14 +805,38 @@ p {
 
 .guarantee-box {
     margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid #f0f0f0;
+    padding: 2.5rem 2rem;
+    border-radius: var(--radius-md);
+    background: rgba(78, 205, 196, 0.08);
+    border: 2px dashed var(--secondary-color);
+    box-shadow: 0 10px 30px rgba(78, 205, 196, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.guarantee-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(78, 205, 196, 0.15);
 }
 
 .shield-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    display: block;
+    font-size: 3rem;
+    margin-bottom: 0.8rem;
+    display: inline-block;
+}
+
+.guarantee-box h3 {
+    color: var(--secondary-color);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+}
+
+.guarantee-box p {
+    font-size: 1.05rem;
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.5;
+    font-weight: 500;
 }
 
 /* Before & After Section */
@@ -949,41 +1008,12 @@ p {
 
 /* Responsive */
 @media (max-width: 900px) {
-    .hero-grid {
-        grid-template-columns: 1fr;
-        /* Stack on tablet/mobile */
-        text-align: center;
-        gap: 3rem;
-    }
-
-    .hero-content {
-        text-align: center;
-        order: 1;
-        /* Text first */
-    }
-
-    .hero-image {
-        order: 2;
-        /* Image second */
-        display: none;
-        /* Optional: hide on very small screens, or keep */
-        /* Let's keep it but make it smaller ? or just block */
-        display: block;
-        margin-top: 2rem;
-    }
-
-    .hero-image img {
-        max-height: 400px;
-    }
+    /* Manter apenas ajustes que não conflitam com a hero */
 }
 
 @media (max-width: 768px) {
     .container {
         padding: 1.5rem;
-    }
-
-    .hero-section h1 {
-        font-size: 3rem;
     }
 
     .section-title {
@@ -995,10 +1025,19 @@ p {
     }
 
     .glow-orb {
-        opacity: 0.4;
+        opacity: 0.3;
     }
 
     .price-box {
         font-size: 4rem;
+    }
+    
+    .price-box .cents {
+        font-size: 1.8rem;
+        margin-top: -0.6rem;
+    }
+    
+    .price-box .currency {
+        font-size: 1.6rem;
     }
 }
